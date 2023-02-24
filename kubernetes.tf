@@ -12,6 +12,11 @@ resource "stackit_kubernetes_cluster" "cluster" {
     minimum       = "4"
     maximum       = "8"
     zones         = ["eu01-1"]
-    os_version    = "3374.2.0"
+    os_version    = "3374.2.3"
   }]
+}
+
+resource "local_file" "kubeconfig" {
+  filename = "kubeconfig-${stackit_kubernetes_cluster.cluster.name}"
+  content = stackit_kubernetes_cluster.cluster.kube_config
 }
